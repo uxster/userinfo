@@ -1,0 +1,13 @@
+doctype html
+html
+	head
+		link(rel='stylesheet', href='/assets/css/main.css', type='text/css')
+	body
+		h1 All users
+		br
+		p Find below a list of all the users in our database:
+		ul
+			each user in users
+				li= user.firstname + ' ' + user.lastname
+		br
+		a.button(href='/') BACK

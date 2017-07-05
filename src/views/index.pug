@@ -1,0 +1,17 @@
+doctype html
+html
+	head 
+		link(rel='stylesheet', href='/css/main.css', type='text/css')
+	body
+		h1 User Info App
+		br
+		p Search for users:
+		input(type='text', placeholder='type in a name')
+		a.button(type='submit') SEARCH
+		br
+		p Or see a list of all our users or create a new one
+		br
+		a.button(href='/users') ALL USERS
+		p Or create a new one
+		br
+		a.button(href='/new') NEW USER 

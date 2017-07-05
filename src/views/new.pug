@@ -1,0 +1,24 @@
+doctype html
+html
+	head 
+		link(rel='stylesheet', href='/assets/css/main.css', type='text/css')
+	body
+		h1 Add a new user
+		br
+		p Fill out the form below to register as a new user
+		br
+		form(method='POST' action='/users')
+			label First name:
+			input(type='text', placeholder='first name' name='firstname')
+			br
+			label Last name:
+			input(type='text', placeholder='last name' name='lastname')
+			br
+			label Email:
+			input(type='email', placeholder='name@email.com' name='email')
+			br
+			br
+			button(type='submit') ADD
+		br
+		br
+		a.button(href='/') BACK
