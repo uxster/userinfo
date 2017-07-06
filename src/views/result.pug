@@ -1,0 +1,20 @@
+doctype html
+html
+	head 
+		link(rel='stylesheet', href='/css/main.css', type='text/css')
+	body
+		h1 User Info App
+		br
+		p Your search came up with the following matching users:
+		p= result
+
+
+				//- if searchquery === users[person].firstname || searchquery === users.lastname
+				//- 	p Your search came up with the following matching users:
+				//- 	br
+				//- 	li= users[person]
+				//- 	br
+				//- 	//- a.button(href='/') BACK
+				//- else
+				//- 	p We don't have any matching users in our database, sorry!
+				//- 	//- a.button(href='/') BACK

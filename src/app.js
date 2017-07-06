@@ -35,20 +35,22 @@ app.set('view engine', 'pug');
 //linking to the css file (which is static)
 app.use(express.static(__dirname + '/../public'));
 //starting bodyparser
+app.use(bodyParser.json());
 app.use('/', bodyParser.urlencoded({ extended: true }));
 
+
+//routes
 app.get('/', function (req, res) {
 	res.render('index');
 });
 
 app.get('/users', function (req, res) {
 	fs.readFile(__dirname + '/../resources/users.json', 'utf8', function (err, data) {
-		var obj = {};
-
 		if (err) {
 			console.log(err);
 		}
 
+		var obj = {};
 		obj = JSON.parse(data);
 
 		res.render('users', {
@@ -61,41 +63,75 @@ app.get('/new', function (req, res) {
 	res.render('new');
 });
 
-app.get('/search', function (req, res) {
-	res.render('search');
+app.get('/result', function (req, res) {
+	res.render('result');
 });
 
+/*The GET method should only be used for forms that don't change 
+user data (e.g. a search form). It is recommended for when you 
+want to be able to bookmark or share the URL.
+var requestMethod = req.method;
+var requestUrl = req.url;*/
+
+app.post('/result', function (req, res) {
+	var searchquery = req.body.search;
+	console.log(searchquery);
+
+	fs.readFile(__dirname + '/../resources/users.json', 'utf8', function (err, data) {
+		if (err) {
+			console.log(err);
+		}
+
+		var obj = JSON.parse(data);
+		console.log(obj);
+
+		for (var i = 0; i < obj.length; i++) {
+           	if ((searchquery === obj[i].firstname) || (searchquery === obj[i].lastname)) {
+            	var result = obj[i];
+
+            	console.log(result);
+
+            	res.render('result', {
+					result: result
+				});
+           	} else {
+            	var result = "No match found!"
+            	console.log(result);
+
+            	res.render('result', {
+					result: result
+				});
+				return;
+          	};
+      	};
+	});
+});
+
+//post
 app.post('/users', function (req, res) {
-	var newData = req.body;
-	// var newDataFirstname = req.body.firstname;
-	// var newDataLastname = req.body.lastname;
-	// var newDataEmail = req.body.email;
+	var newData = req.body;		//req.body returns a js object!!
 
-	console.log('recieved post: ' + newData)
 	fs.readFile(__dirname + '/../resources/users.json', 'utf8', function(err, data) {
-		// console.log('newData: ' + newData)
-		var obj = {};
-
 		if(err) {
 			throw err;    
 		}
 
+		var obj = {};
 		obj = JSON.parse(data);
-
 		obj.push(newData);
 
-		// console.log('read done: ' + data)
-		// console.log('parsed: ' + obj)
-
-		// console.log(JSON.stringify(obj))
-
-		fs.writeFile(__dirname + '/../resources/users.json', obj, 'utf8', function(err) {
+		fs.writeFile(__dirname + '/../resources/users.json', JSON.stringify(obj), 'utf8', function(err) {
 		});
 	});
 
 	res.redirect('/users');
+
+	// var newDataFirstname = req.body.firstname;
+	// var newDataLastname = req.body.lastname;
+	// var newDataEmail = req.body.email;
 });
 
+//start listening
 var server = app.listen(3000, function () {
 	console.log('Example app listening on port: ' + server.address().port);
 });
