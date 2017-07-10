@@ -1,6 +1,9 @@
 body {
+	padding-top: 200px;
 	text-align: center;
 	font-family: Helvetica, sans-serif;
+	background-image: url(../images/diagmonds.png);
+	color: white;
 }
 
 h1 {
