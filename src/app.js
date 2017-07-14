@@ -117,10 +117,14 @@ app.post('/result', function(req, res) {
 		for (var i = 0; i < obj.length; i++) {
 			//check if the searchquery equals any firstname or lastname value in obj
 			if ((searchquery === obj[i].firstname) || (searchquery === obj[i].lastname)) {
-				//if true, assign the correct object to the result-variable
-				var result = obj[i];
+				//if true, assign the correct object to the result-array
+				var value = obj[i];
+				var result = [];
+				result.push(value);
 			} 
 		};
+
+		console.log(result)
 		
 		//render the result.pug file and send along the data stored in the result-variable
 		res.render('result', {
