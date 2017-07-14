@@ -132,6 +132,7 @@ app.post('/result', function(req, res) {
 //start listening to port 3000 and log it to check if it's working
 var server = app.listen(3000, function() {
 	console.log('Example app listening on port: ' + server.address().port);
+	console.log(__dirname);
 });
 
 
