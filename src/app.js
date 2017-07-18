@@ -112,31 +112,30 @@ app.post('/result', function(req, res) {
 
 		//storing parsed json-data in a variable called obj
 		var obj = JSON.parse(data);
+		var result = [];
 
 		//loop through the array of objects in obj
 		for (var i = 0; i < obj.length; i++) {
 			//check if the searchquery equals any firstname or lastname value in obj
-			if ((searchquery === obj[i].firstname) || (searchquery === obj[i].lastname)) {
+			if (obj[i].firstname.includes(searchquery) || obj[i].lastname.includes(searchquery) || obj[i].email.includes(searchquery)) {
 				//if true, assign the correct object to the result-array
 				var value = obj[i];
-				var result = [];
 				result.push(value);
-			} 
+			}; 
 		};
 
-		console.log(result)
+		console.log(result);
 		
 		//render the result.pug file and send along the data stored in the result-variable
-		res.render('result', {
-			result: result,
+		res.render('matches', {
+			result: result
 		});
 	});
 });
 
 //start listening to port 3000 and log it to check if it's working
 var server = app.listen(3000, function() {
-	console.log('Example app listening on port: ' + server.address().port);
-	console.log(__dirname);
+	console.log('User Info App listening on port: ' + server.address().port);
 });
 
 

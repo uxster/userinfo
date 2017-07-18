@@ -13,5 +13,8 @@ html
 			//- button(type='submit') SEARCH
 		//- if the result variable (which was sent along with the res.render) is undefined, that means that there's no match found in the json-file. 
 		div#result
+			ul.list
+				each user in result
+					li= user.firstname + ' ' + user.lastname
 		br
 		a.button(href='/') BACK
