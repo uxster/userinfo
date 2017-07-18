@@ -123,11 +123,9 @@ app.post('/result', function(req, res) {
 				result.push(value);
 			}; 
 		};
-
-		console.log(result);
 		
 		//render the result.pug file and send along the data stored in the result-variable
-		res.render('matches', {
+		res.render('result', {
 			result: result
 		});
 	});

@@ -1,13 +1,21 @@
 $(document).ready(function() {
-	$(".target").on("keyup", function() {
-		var query = {
-			search: $(this).val()
-		}
 
-		$.post("/result", query, function (res) {
-			var matches = res.result;
+		// setInterval(
+			$(".target").on("keyup", function() {
+			var query = {
+				search: $(this).val()
+			}
+
+			$.post("/result", query, function (res) {
+				$("#result").html("<ul/>");
+
+				for(user in res){
+					$("#result").append("<li>" + user.firstname + user.lastname + ": " + user.email + "</li>");
+				}
+			});
 		});
-	});
+	// , 300);
+
 });
 
 			// if(matches === undefined){
