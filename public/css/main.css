@@ -22,3 +22,7 @@ body ul {
 	border-radius: 3px;
 	text-decoration: none;
 }
+
+#result ul {
+	list-style: none;
+}

@@ -4,13 +4,8 @@ html
 		link(rel='stylesheet', href='/css/main.css', type='text/css')
 	body
 		h1 User Info App
-		br
-		p Search for users:
-		form(method='post' action='/result')
-			input(type='text', placeholder='type in a name', name='search')
-			button(type='submit') SEARCH
-		br
-		p Or see a list of all our users or create a new one
+		p See a list of all our users, search for a user or create a new oness
 		br
 		a.button(href='/users') ALL USERS
+		a.button(href='/result') SEARCH USERS
 		a.button(href='/new') NEW USER 

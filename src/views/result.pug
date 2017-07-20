@@ -1,17 +1,16 @@
 doctype html
 html
 	head 
+		script(src='http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js')
 		link(rel='stylesheet', href='/css/main.css', type='text/css')
+		script(src='/js/main.js')
 	body
 		h1 User Info App
 		br
-		//- if the result variable (which was sent along with the res.render) is undefined, that means that there's no match found in the json-file. 
-		if result === undefined
-			p We don't have any matching users in our database, sorry!
-			a.button(href='/') BACK
-		//- otherwise, there is a match, so print the name and emailadres of that match
-		else
-			p Your search came up with the following matching users:
-			p= 'Name: ' + result.firstname + ' ' + result.lastname
-			p= 'Email: ' + result.email
-			a.button(href='/') BACK
+		p Search for users:
+		form(method='post' action='/result')
+			input(class='target' type='text', placeholder='type in a name', name='search')
+			button(type='submit') SEARCH
+		div#result
+		br
+		a.button(href='/') BACK
