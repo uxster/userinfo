@@ -1,0 +1,19 @@
+doctype html
+html
+	head 
+		script(src='http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js')
+		link(rel='stylesheet', href='/css/main.css', type='text/css')
+		script(src='/js/main.js')
+	body
+		h1 User Info App
+		br
+		div
+			if value === undefined
+				p We don't have any matching users in our database, sorry!
+				
+			else
+				p Your search came up with the following matching users:
+				p= 'Name: ' + value.firstname + ' ' + value.lastname
+				p= 'Email: ' + value.email
+		br
+		a.button(href='/result') BACK

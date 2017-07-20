@@ -1,37 +1,33 @@
 $(document).ready(function() {
 
-		// setInterval(
-			$(".target").on("keyup", function() {
-			var query = {
-				search: $(this).val()
-			}
+	$(".target").on("keyup", function() {
+		var query = {
+			search: $(this).val()
+		}
 
-			$.post("/result", query, function (res) {
-				$("#result").html("<ul/>");
+		function postRequest() {
+			$.post("/matches", query, function (res) {
+				var result = res.result;
 
-				for(user in res){
-					$("#result").append("<li>" + user.firstname + user.lastname + ": " + user.email + "</li>");
-				}
+			 	$("#result").html("<ul/>");
+
+				for(var i = 0; i < result.length; i++){
+					$("#result ul").append("<li>" + result[i].firstname + " " + result[i].lastname + ": " + result[i].email + "</li>");
+				};
 			});
-		});
-	// , 300);
+		};
+
+		setTimeout(postRequest, 300);
+
+	});
 
 });
 
-			// if(matches === undefined){
-			// 	$('#result').append('<p>We dont have any matching users in our database, sorry!</p>')
-
-			// }
-			// else{
-			// 	$('#result').append('<p>Your search came up with the following matching users:</p>')
-			// 		var mList = $('ul.list');
-					
-			// 		$.each(matches, function(i) {
-			// 			var li = $('<li/>')
-			// 				.appendTo(mList);
-			// 			var p = $('<p/>')
-			// 				.addClass('ui-all')
-			// 				.text(matches[i].firstname+" "+matches[i].lastname)
-			// 				.appendTo(li);
-			// 		});
-			// };
+						
+// if (query.search.includes("")) {
+// 	$('#result').html('<p>Start typing to search for users.</p>')
+// }
+// if(result.length === 0){
+// 		$('#result').html('<p>We dont have any matching users in our database, sorry!</p>')
+// 	}
+// console.log(typeof query.search + " " + query.search + "!");

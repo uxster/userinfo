@@ -99,33 +99,52 @@ app.post('/users', function(req, res) {
 	res.redirect('/users');
 });
 
-//post request for the /result route
 app.post('/result', function(req, res) {
-	//store the data from the req.body (formname = search) in a variable called searchquery
 	var searchquery = req.body.search;
 
-	//function to read the users.json file
 	fs.readFile(__dirname + '/../resources/users.json', 'utf8', function(err, data) {
 		if (err) {
 			console.log(err);
 		}
 
-		//storing parsed json-data in a variable called obj
+		var obj = JSON.parse(data);
+
+		for (var i = 0; i < obj.length; i++) {
+			if ((searchquery === obj[i].firstname) || (searchquery === obj[i].lastname) || (searchquery === obj[i].email)) {
+				var value = obj[i];
+			};
+		}
+		res.render('submit', {
+			value: value
+		});
+	});
+});
+
+app.post('/matches', function(req, res) {
+	var searchquery = req.body.search.toLowerCase();
+
+	fs.readFile(__dirname + '/../resources/users.json', 'utf8', function(err, data) {
+		if (err) {
+			console.log(err);
+		}
+
 		var obj = JSON.parse(data);
 		var result = [];
+		var empty = "";
 
-		//loop through the array of objects in obj
-		for (var i = 0; i < obj.length; i++) {
-			//check if the searchquery equals any firstname or lastname value in obj
-			if (obj[i].firstname.includes(searchquery) || obj[i].lastname.includes(searchquery) || obj[i].email.includes(searchquery)) {
-				//if true, assign the correct object to the result-array
-				var value = obj[i];
-				result.push(value);
-			}; 
-		};
-		
-		//render the result.pug file and send along the data stored in the result-variable
-		res.render('result', {
+		if(searchquery === empty) {
+			result = [];
+		} else {
+			for (var i = 0; i < obj.length; i++) {
+				if(obj[i].firstname.toLowerCase().includes(searchquery) || obj[i].lastname.toLowerCase().includes(searchquery) || obj[i].email.toLowerCase().includes(searchquery)){
+					var value = obj[i];
+					result.push(value);
+				}
+			}
+		}
+		// console.log(result);
+
+		res.send({
 			result: result
 		});
 	});

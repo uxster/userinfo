@@ -10,8 +10,7 @@ html
 		p Search for users:
 		form(method='post' action='/result')
 			input(class='target' type='text', placeholder='type in a name', name='search')
-			//- button(type='submit') SEARCH
-		//- if the result variable (which was sent along with the res.render) is undefined, that means that there's no match found in the json-file. 
+			button(type='submit') SEARCH
 		div#result
 		br
 		a.button(href='/') BACK
